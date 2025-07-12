@@ -2,7 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles/index.css";
 import AppRoutes from "./routes/AppRoutes";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/authContext";
+
+if (import.meta.env.DEV) {
+  const { trabalhador } = await import("./mocks/navegador");
+  await trabalhador.start({ onUnhandledRequest: "bypass" });
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
