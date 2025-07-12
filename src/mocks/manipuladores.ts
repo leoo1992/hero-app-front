@@ -13,7 +13,7 @@ let USUARIO_FALSO = {
   email: "",
 };
 
-let tokenFalso: string | null = null;
+let tokenFalso: string | null = "fake.jwt.token.v1";
 
 export const manipuladores = [
   http.post("/auth/login", async ({ request }) => {
@@ -24,6 +24,11 @@ export const manipuladores = [
 
     console.log("LOGIN MOCK:", email, senha);
 
+    if (email !== USUARIO_CORRETO.email || senha !== USUARIO_CORRETO.senha) {
+      return new Response(JSON.stringify({ erro: "Credenciais incorretas" }), {
+        status: 401,
+      });
+    }
     if (email === USUARIO_CORRETO.email && senha === USUARIO_CORRETO.senha) {
       USUARIO_FALSO = {
         id: USUARIO_CORRETO.id,
@@ -31,7 +36,7 @@ export const manipuladores = [
         email: USUARIO_CORRETO.email,
       };
 
-      tokenFalso = "fake.jwt.token";
+      tokenFalso = "fake.jwt.token.v1";
       console.log("LOGIN - Retornando token:", tokenFalso);
 
       return new Response(
@@ -40,7 +45,7 @@ export const manipuladores = [
           status: 200,
           headers: {
             "Content-Type": "application/json",
-            "Set-Cookie": `token=${tokenFalso}; Path=/; Max-Age=900`,
+            "Set-Cookie": `token=${tokenFalso}; Path=/; Max-Age=1800`,
           },
         }
       );
@@ -57,10 +62,12 @@ export const manipuladores = [
     const tokenDoHeader = cabecalhoAuth.replace("Bearer ", "").trim();
 
     console.log("VERIFICA - Cookie recebido:", cookieRecebido);
+    console.log("VERIFICA - Authorization header:", tokenDoHeader);
+    console.log("Token atual esperado:", tokenFalso);
 
-    const contemToken = cookieRecebido.includes("token=fake.jwt.token");
+    const contemToken = cookieRecebido.includes(`token=${tokenFalso}`);
 
-    if (contemToken || tokenDoHeader === "fake.jwt.token") {
+    if (contemToken || tokenDoHeader === tokenFalso) {
       return Response.json(USUARIO_FALSO);
     }
 
@@ -70,12 +77,13 @@ export const manipuladores = [
   }),
 
   http.post("/auth/refresh", () => {
-    tokenFalso = "fake.jwt.token";
+    tokenFalso = "fake.jwt.token.v2";
+    console.log("REFRESH - Novo token gerado:", tokenFalso);
 
-    return new Response(JSON.stringify({ ok: true }), {
+    return new Response(JSON.stringify({ ok: true, token: tokenFalso }), {
       status: 200,
       headers: {
-        "Set-Cookie": `token=${tokenFalso}; Path=/; Max-Age=900`,
+        "Set-Cookie": `token=${tokenFalso}; Path=/; Max-Age=3600`,
       },
     });
   }),

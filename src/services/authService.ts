@@ -4,6 +4,13 @@ import api from "@/lib/api";
 export async function authService(
   credenciais: TLoginCredenciais
 ): Promise<TAuthResposta> {
-  const response = await api.post<TAuthResposta>("/auth/login", credenciais);
-  return response.data;
+  try {
+    const response = await api.post<TAuthResposta>("/auth/login", credenciais);
+    return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    const mensagem =
+      error?.response?.data?.erro || "Falha desconhecida no login";
+    throw new Error(mensagem);
+  }
 }

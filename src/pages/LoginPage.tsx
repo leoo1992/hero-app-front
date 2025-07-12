@@ -51,7 +51,9 @@ export default function LoginPage() {
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
         />
-        {erro && <p className="text-red-500 text-sm text-center">{erro}</p>}
+        {erro && (
+          <p className="text-red-500 text-sm text-center font-bold">{erro}</p>
+        )}
         <Button type="submit">Entrar</Button>
 
         <p className="text-center text-sm text-gray-600">

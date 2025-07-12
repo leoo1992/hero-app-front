@@ -61,7 +61,7 @@ export function AuthProvider({ children }: Readonly<{ children: ReactNode }>) {
 
         if (token) {
           setToken(token);
-          document.cookie = `token=${token}; path=/; max-age=900`;
+          document.cookie = `token=${token}; path=/; max-age=10`;
           localStorage.setItem("token", token);
 
           if (nome) {
