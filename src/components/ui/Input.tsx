@@ -6,10 +6,22 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export default function Input({
   className = "",
+  type,
+  autoComplete,
   ...props
 }: Readonly<InputProps>) {
   const baseClasses =
     "w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400";
 
-  return <input {...props} className={`${baseClasses} ${className}`} />;
+  const autoCompleteFinal =
+    type === "password" && !autoComplete ? "current-password" : autoComplete;
+
+  return (
+    <input
+      type={type}
+      autoComplete={autoCompleteFinal}
+      {...props}
+      className={`${baseClasses} ${className}`}
+    />
+  );
 }
