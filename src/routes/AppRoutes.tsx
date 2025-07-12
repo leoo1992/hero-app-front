@@ -1,52 +1,56 @@
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoginPage from "../pages/LoginPage";
+
 import LoginLayout from "../layouts/LoginLayout";
-import DashBoard from "../pages/DashBoard";
 import DefaultLaytout from "../layouts/DefaultLayout";
-import RegisterPage from "../pages/RegisterPage";
 import RegistroProvider from "@/contexts/RegistroContext";
-import PaginaNaoEncontrada from "@/pages/PaginaNaoEncontrada";
 import ProtectedRoute from "./ProtectRoute";
 import RedirectRoute from "./RedirectRoute";
+import Loading from "@/components/ui/Loading";
+
+const LoginPage = lazy(() => import("../pages/LoginPage"));
+const RegisterPage = lazy(() => import("../pages/RegisterPage"));
+const DashBoard = lazy(() => import("../pages/DashBoard"));
+const PaginaNaoEncontrada = lazy(() => import("../pages/PaginaNaoEncontrada"));
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <RedirectRoute>
-              <LoginLayout>
-                <LoginPage />
-              </LoginLayout>
-            </RedirectRoute>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <RegistroProvider>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route
+            path="/"
+            element={
               <RedirectRoute>
+                <LoginLayout>
+                  <LoginPage />
+                </LoginLayout>
+              </RedirectRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <RegistroProvider>
                 <LoginLayout>
                   <RegisterPage />
                 </LoginLayout>
-              </RedirectRoute>
-            </RegistroProvider>
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <DefaultLaytout>
-                <DashBoard />
-              </DefaultLaytout>
-            </ProtectedRoute>
-          }
-        />
-        <Route path="*" element={<PaginaNaoEncontrada />} />
-      </Routes>
+              </RegistroProvider>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DefaultLaytout>
+                  <DashBoard />
+                </DefaultLaytout>
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<PaginaNaoEncontrada />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }
