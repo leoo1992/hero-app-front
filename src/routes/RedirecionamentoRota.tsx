@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom";
 import { useContext, type ReactElement } from "react";
-import AuthContext from "@/contexts/AuthContext";
+import AuthContext from "@/contexts/authContext";
 import Loading from "@/components/ui/Loading";
 
-export default function RedirectRoute({
+export default function RedirecionamentoRota({
   children,
 }: {
   readonly children: ReactElement;

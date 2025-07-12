@@ -15,6 +15,7 @@ import type {
   TAuthContextData,
 } from "@/types/index.type";
 import { authService } from "@/services/authService";
+import { verificaJWTService } from "@/services/verificaJWTService";
 
 const AuthContext = createContext<TAuthContextData>({} as TAuthContextData);
 
@@ -25,17 +26,24 @@ export function AuthProvider({ children }: Readonly<{ children: ReactNode }>) {
   const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = setTimeout(async () => {
       showLoading();
-      const localStorageUsuario = localStorage.getItem("@HeroForce:usuario");
-      const localStorageToken = localStorage.getItem("@HeroForce:token");
 
-      if (localStorageUsuario && localStorageToken) {
-        setUsuario(JSON.parse(localStorageUsuario));
-        setToken(localStorageToken);
+      try {
+        const tokenLocal = localStorage.getItem("token");
+        if (!tokenLocal) throw new Error("Sem token");
+        const user = await verificaJWTService();
+        setUsuario(user);
+        setToken(tokenLocal);
+      } catch {
+        setUsuario(null);
+        setToken(null);
+        localStorage.removeItem("token");
+        localStorage.removeItem("nome");
+      } finally {
+        setCarregando(false);
+        hideLoading();
       }
-      setCarregando(false);
-      hideLoading();
     }, 500);
 
     return () => clearTimeout(timer);
@@ -47,13 +55,19 @@ export function AuthProvider({ children }: Readonly<{ children: ReactNode }>) {
       try {
         const resposta: TAuthResposta = await authService(credenciais);
         setUsuario(resposta.usuario);
-        setToken(resposta.token);
 
-        localStorage.setItem(
-          "@HeroForce:usuario",
-          JSON.stringify(resposta.usuario)
-        );
-        localStorage.setItem("@HeroForce:token", resposta.token);
+        const token = resposta.token || null;
+        const nome = resposta.usuario.nome || null;
+
+        if (token) {
+          setToken(token);
+          document.cookie = `token=${token}; path=/; max-age=900`;
+          localStorage.setItem("token", token);
+
+          if (nome) {
+            localStorage.setItem("nome", nome);
+          }
+        }
       } finally {
         hideLoading();
       }
@@ -65,8 +79,9 @@ export function AuthProvider({ children }: Readonly<{ children: ReactNode }>) {
     showLoading();
     setUsuario(null);
     setToken(null);
-    localStorage.removeItem("@HeroForce:usuario");
-    localStorage.removeItem("@HeroForce:token");
+    document.cookie = "";
+    localStorage.removeItem("token");
+    localStorage.removeItem("nome");
     hideLoading();
   }, [hideLoading, showLoading]);
 

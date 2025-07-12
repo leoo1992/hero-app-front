@@ -1,17 +1,9 @@
 import type { TLoginCredenciais, TAuthResposta } from "@/types/index.type";
+import api from "@/lib/api";
 
 export async function authService(
   credenciais: TLoginCredenciais
 ): Promise<TAuthResposta> {
-  const response = await fetch("http://localhost:3000/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(credenciais),
-  });
-
-  if (!response.ok) {
-    throw new Error("Falha no login");
-  }
-
-  return response.json();
+  const response = await api.post<TAuthResposta>("/auth/login", credenciais);
+  return response.data;
 }

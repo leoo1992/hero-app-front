@@ -1,15 +1,9 @@
-import type { TAuthResposta, TRegistroUsuarioData } from "@/types/index.type";
+import type { TRegistroUsuarioData, TAuthResposta } from "@/types/index.type";
+import api from "@/lib/api";
 
 export async function registroService(
   data: TRegistroUsuarioData
 ): Promise<TAuthResposta> {
-  const response = await fetch("http://localhost:3000/auth/register", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-
-  if (!response.ok) throw new Error("Falha no registro");
-
-  return response.json();
+  const response = await api.post<TAuthResposta>("/auth/registro", data);
+  return response.data;
 }
