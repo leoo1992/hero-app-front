@@ -12,11 +12,9 @@ import type {
 } from "@/types/index.type";
 import { registroService } from "@/services/registroService";
 
-const RegistroContext = createContext<TRegistroContextData>(
-  {} as TRegistroContextData
-);
+const RegistroContext = createContext<TRegistroContextData>({} as TRegistroContextData);
 
-export default function RegistroProvider({
+export function RegistroProvider({
   children,
 }: {
   readonly children: ReactNode;
@@ -50,3 +48,5 @@ export default function RegistroProvider({
     </RegistroContext.Provider>
   );
 }
+
+export default RegistroContext;
