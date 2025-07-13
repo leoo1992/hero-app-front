@@ -6,7 +6,7 @@ export default function Drawer() {
       <div className="drawer-content flex items-center">
         <label
           htmlFor="my-drawer"
-          className="btn -rotate-15 btn-circle btn-ghost drawer-button text-7xl hover:border-0 text-indigo-900 hover:bg-transparent hover:shadow-none"
+          className="btn -rotate-15 btn-circle btn-ghost drawer-button hover:border-0 text-indigo-900 hover:bg-transparent hover:shadow-none"
         >
           <div className="flex items-center gap-1">
             <div className="tooltip tooltip-bottom tooltip-accent">
@@ -15,11 +15,13 @@ export default function Drawer() {
                   Menu
                 </div>
               </div>
-              <GiBatMask />
+              <div className="text-5xl sm:text-5xl ">
+                <GiBatMask />
+              </div>
             </div>
           </div>
         </label>
-        <span className="ml-6 text-xl text-indigo-900 ">HeroForce</span>
+        <span className="ml-6 text-xl text-indigo-900 ">Hero Force</span>
       </div>
 
       <div className="drawer-side w-screen max-w-screen">
@@ -41,7 +43,7 @@ export default function Drawer() {
           <div className="bg-base-100 border-base-300 collapse border">
             <input type="checkbox" className="peer" />
             <div className="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-              Estátisticas
+              Ranking
             </div>
             <div className="collapse-content bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
               rota 1
@@ -50,7 +52,7 @@ export default function Drawer() {
           <div className="bg-base-100 border-base-300 collapse border">
             <input type="checkbox" className="peer" />
             <div className="collapse-title bg-primary text-primary-content peer-checked:bg-teal-600 peer-checked:text-secondary-content">
-              Projetos
+              Missões
             </div>
             <div className="collapse-content bg-primary text-primary-content peer-checked:bg-teal-600 peer-checked:text-secondary-content">
               rota 1
