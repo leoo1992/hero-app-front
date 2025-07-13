@@ -11,6 +11,7 @@ import RegistroContext from "@/contexts/registroContext";
 export default function RegisterPage() {
   const { registrar } = useContext(RegistroContext);
   const navigate = useNavigate();
+
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -23,7 +24,6 @@ export default function RegisterPage() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setErro(null);
-
     try {
       await registrar({ nome, email, senha });
       navigate("/");
@@ -32,29 +32,39 @@ export default function RegisterPage() {
       setErro("Erro ao registrar. Tente novamente.");
     }
   }
+
   return (
-    <section className="flex flex-col items-end justify-end text-indigo-800 gap-2 w-full max-w-sm">
-      <Button
-        variant="secondary"
-        className="bg-purple-950 mt-4 rounded-xl opacity-90 mr-3 shadow-accent shadow-2xl"
-        icon={<FaArrowLeft />}
-        onClick={retornaLogin}
-      >
-        Login
-      </Button>
-      <div className="card p-4 mb-6 rounded-3xl w-full shrink-0 shadow-xl bg-base-100 opacity-90">
-        <div className="card-body">
+    <section className="min-h-screen flex flex-col justify-center items-center text-indigo-800">
+      <div className="self-start mt-4 mb-2">
+        <Button
+          variant="secondary"
+          className="bg-purple-950 text-white rounded-xl opacity-90 ml-2 shadow-accent shadow-xl"
+          icon={<FaArrowLeft />}
+          onClick={retornaLogin}
+        >
+          Voltar ao Login
+        </Button>
+      </div>
+
+      <div className="card p-4 rounded-3xl w-full max-w-md shadow-2xl bg-white opacity-95">
+        <div className="card-body p-2">
           <form
-            className="w-full space-y-4 flex flex-col justify-center"
-            autoComplete="off"
             onSubmit={handleSubmit}
+            autoComplete="off"
+            className="flex flex-col gap-4"
           >
-            <h2 className="text-2xl font-bold text-center text-indigo-800">
-              <div className="justify-items-center text-5xl mb-2 hidden sm:block sm:-rotate-20">
+            <div className="text-center">
+              <div className="w-0 text-5xl text-blue-600 animate-pulse hidden sm:block sm:-rotate-12">
                 <GiBatMask />
               </div>
-              Cadastro do Herói
-            </h2>
+              <h2 className="text-2xl font-bold m-0 p-0">
+                Alistamento de Herói
+              </h2>
+              <p className="text-sm text-gray-600 mt-2 flex gap-1 justify-center">
+                <span>Junte-se à Hero Force </span>
+                <span className="hidden sm:block"> e transforme o mundo.</span>
+              </p>
+            </div>
             <InputMail
               type="text"
               placeholder="Nome do Herói"
@@ -65,18 +75,20 @@ export default function RegisterPage() {
             <InputMail
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="E-mail do Herói"
             />
             <InputPass
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
+              placeholder="Senha secreta"
             />
             {erro && (
               <p className="text-red-500 text-sm text-center font-bold">
                 {erro}
               </p>
             )}
-            <Button type="submit" className="btn-block mt-4 rounded-xl">
-              Registrar
+            <Button type="submit" className="btn-block mt-2 rounded-xl">
+              Entrar para a Hero Force
             </Button>
           </form>
         </div>

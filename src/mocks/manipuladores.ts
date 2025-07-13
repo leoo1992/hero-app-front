@@ -1,3 +1,4 @@
+import type { TRegistroUsuarioData } from "@/types/index.type";
 import { http } from "msw";
 
 const USUARIO_CORRETO = {
@@ -110,5 +111,25 @@ export const manipuladores = [
         "Set-Cookie": `token=${tokenFalso}; Path=/; Max-Age=3600`,
       },
     });
+  }),
+
+  http.post("/auth/registro", async ({ request }) => {
+    const { nome, email, senha } =
+      (await request.json()) as TRegistroUsuarioData;
+    if (!nome || !email || !senha) {
+      return new Response(JSON.stringify({ erro: "Campos obrigatórios" }), {
+        status: 400,
+      });
+    }
+
+    return new Response(
+      JSON.stringify({
+        usuario: { id: 2, nome, email },
+        token: "fake.jwt.token.vNovo",
+      }),
+      {
+        status: 201,
+      }
+    );
   }),
 ];
