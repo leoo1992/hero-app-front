@@ -8,3 +8,4 @@ export * from "./TRegistroUsuarioData.type";
 export * from "./TUsuario.type";
 export * from "./TAuthContextData.type";
 export * from "./TRegistroContextData.type";
+export * from "./THero.type";
