@@ -33,18 +33,14 @@ export default function LoginPage() {
   return (
     <section className="hero min-h-full w-full text-indigo-800 font-semibold p-0 m-0 flex flex-col">
       <div className="hero-content flex-col lg:flex-row-reverse gap-2 sm:gap-8 w-full p-0 m-0 flex lg:justify-content-end">
-        <div className="opacity-90 text-center lg:text-left bg-emerald-50 p-2 sm:p-6 rounded-xl md:rounded-3xl">
-          <div className="w-0 h-0 justify-items-center text-6xl hidden md:block sm:-rotate-20">
-              <GiBatMask />
+        <div className="text-center lg:text-left p-4 sm:p-8 bg-white shadow-md rounded-3xl opacity-90 max-w-md">
+          <div className="w-0 text-6xl text-blue-700 animate-pulse hidden md:block sm:-rotate-12">
+            <GiBatMask />
           </div>
-
-          <h1 className="text-2xl text-center font-bold w-72">
-            Login do Herói !
-          </h1>
-          <p className="pt-6 max-w-72 md:leading-relaxed hidden md:block">
-            Seja bem-vindo(a) ao HeroForce, onde cada clique é um passo na sua
-            jornada de transformação. Faça login e continue sendo o herói da sua
-            história.
+          <h1 className="text-3xl font-bold m-0 p-0">Bem-vindo à HeroForce!</h1>
+          <p className="mt-4 text-gray-700">
+            Você está a um passo de entrar para a elite dos heróis digitais.
+            Acesse sua conta e continue sua missão.
           </p>
         </div>
         <div className="card p-3 sm:p-4 mb-6 sm:0 rounded-3xl w-full max-w-sm shrink-0 shadow-xl bg-base-100 opacity-90">
@@ -58,29 +54,23 @@ export default function LoginPage() {
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
               />
-              <div className="flex gap-2 w-full pt-6 justify-end sm:justify-center">
-                <span className="text-indigo-500 hidden sm:block">
-                  Ainda não tem conta?
-                </span>
-                <Link
-                  to="/register"
-                  className="text-blue-500 hover:underline text-center"
-                >
-                  Cadastre-se
-                </Link>
-              </div>
+
               {erro && (
                 <p className="text-red-500 text-sm text-center font-bold">
                   {erro}
                 </p>
               )}
-              <Button
-                type="submit"
-                value="Submit"
-                className="btn-block mt-4 rounded-xl"
-              >
-                Entrar
+
+              <Button type="submit" className="btn-block mt-4 rounded-xl">
+                Entrar na base secreta
               </Button>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 pt-4">
+                <span className="text-indigo-600">Novo por aqui?</span>
+                <Link to="/register" className="text-blue-600 hover:underline">
+                  Cadastre-se como herói
+                </Link>
+              </div>
             </form>
           </div>
         </div>
