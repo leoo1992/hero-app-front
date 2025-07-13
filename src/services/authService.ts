@@ -9,6 +9,8 @@ export async function authService(
     return response.data;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
+    console.log("Erro no login:", error);
+
     const mensagem =
       error?.response?.data?.erro || "Falha desconhecida no login";
     throw new Error(mensagem);

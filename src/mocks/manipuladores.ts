@@ -3,8 +3,8 @@ import { http } from "msw";
 const USUARIO_CORRETO = {
   id: 1,
   nome: "Leonardo Santos",
-  email: "leo@teste.com",
-  senha: "123456",
+  email: "l@l.l",
+  senha: "1",
 };
 
 let USUARIO_FALSO = {
@@ -17,18 +17,41 @@ let tokenFalso: string | null = "fake.jwt.token.v1";
 
 export const manipuladores = [
   http.post("/auth/login", async ({ request }) => {
+    console.log("Mock interceptado: /auth/login");
+
     const { email, senha } = (await request.json()) as {
       email: string;
       senha: string;
     };
 
-    console.log("LOGIN MOCK:", email, senha);
+    console.log(
+      "LOGIN MOCK:",
+      email,
+      senha,
+      USUARIO_CORRETO.email,
+      USUARIO_CORRETO.senha
+    );
 
-    if (email !== USUARIO_CORRETO.email || senha !== USUARIO_CORRETO.senha) {
-      return new Response(JSON.stringify({ erro: "Credenciais incorretas" }), {
-        status: 401,
-      });
+    if (email != USUARIO_CORRETO.email) {
+      return new Response(
+        JSON.stringify({ erro: "Credenciais incorretas 1" }),
+        {
+          status: 401,
+        }
+      );
     }
+
+    if (senha != USUARIO_CORRETO.senha) {
+      return new Response(
+        JSON.stringify({ erro: "Credenciais incorretas 2" }),
+        {
+          status: 401,
+        }
+      );
+    }
+
+    console.log("LOGIN MOC2K:", email, senha);
+
     if (email === USUARIO_CORRETO.email && senha === USUARIO_CORRETO.senha) {
       USUARIO_FALSO = {
         id: USUARIO_CORRETO.id,
@@ -78,9 +101,10 @@ export const manipuladores = [
 
   http.post("/auth/refresh", () => {
     tokenFalso = "fake.jwt.token.v2";
+    const nome = "Leonardo";
     console.log("REFRESH - Novo token gerado:", tokenFalso);
 
-    return new Response(JSON.stringify({ ok: true, token: tokenFalso }), {
+    return new Response(JSON.stringify({ ok: true, nome, token: tokenFalso }), {
       status: 200,
       headers: {
         "Set-Cookie": `token=${tokenFalso}; Path=/; Max-Age=3600`,

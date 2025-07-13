@@ -7,21 +7,6 @@ const api = axios.create({
 
 let refreshTokenPromise: Promise<import("axios").AxiosResponse> | null = null;
 
-export async function refreshTokenManualmente() {
-  try {
-    const resposta = await api.post("/auth/refresh");
-    const novoToken = resposta.data.token;
-    if (novoToken) {
-      localStorage.setItem("token", novoToken);
-      console.log("Token atualizado manualmente:", novoToken);
-    }
-    return novoToken;
-  } catch (error) {
-    console.error("Erro no refresh manual:", error);
-    throw error;
-  }
-}
-
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -42,8 +27,10 @@ api.interceptors.response.use(
           .post("/auth/refresh")
           .then((res) => {
             const novoToken = res.data.token;
+            const nome = res.data.nome;
             if (novoToken) {
               localStorage.setItem("token", novoToken);
+              localStorage.setItem("nome", nome);
             }
             refreshTokenPromise = null;
             return res;
