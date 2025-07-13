@@ -3,30 +3,33 @@ import type { InputHTMLAttributes, ReactNode } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
-  icon?: ReactNode
+  placeholder?: string;
+  icon?: ReactNode;
 }
 
 export default function Input({
   className = "",
-  icon ,
+  icon,
+  placeholder = "Email",
   ...props
 }: Readonly<InputProps>) {
   const baseClasses = "w-full";
   return (
     <>
       <label className="input input-accent validator rounded-xl">
-       {icon || <AiOutlineMail />}
+        {icon || <AiOutlineMail />}
         <input
           type="email"
           autoComplete="username"
           required
-          placeholder="Email"
-        
+          placeholder={placeholder}
           {...props}
           className={`${baseClasses} ${className}`}
         />
       </label>
-      <div className="validator-hint hidden">Entre com seu e-mail</div>
+      <div className="validator-hint hidden">
+        Digite o {placeholder.toLowerCase()}
+      </div>
     </>
   );
 }
