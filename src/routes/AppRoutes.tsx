@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import LoginLayout from "../layouts/LoginLayout";
 import DefaultLaytout from "../layouts/DefaultLayout";
-import RegistroProvider from "@/contexts/registroContext";
+import { RegistroProvider } from "@/contexts/registroContext";
 import ProtectedRoute from "./RotasProtegidas";
 import RedirectRoute from "./RedirecionamentoRota";
 import Loading from "@/components/ui/Loading";
@@ -31,11 +31,11 @@ export default function AppRoutes() {
           <Route
             path="/register"
             element={
-              <RegistroProvider>
-                <LoginLayout>
+              <LoginLayout>
+                <RegistroProvider>
                   <RegisterPage />
-                </LoginLayout>
-              </RegistroProvider>
+                </RegistroProvider>
+              </LoginLayout>
             }
           />
           <Route
