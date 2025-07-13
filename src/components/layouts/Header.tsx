@@ -1,24 +1,31 @@
+import { FaDoorOpen } from "react-icons/fa";
+import IconButton from "@/components/ui/IconButton";
 import { useContext } from "react";
 import AuthContext from "@/contexts/authContext";
+import Drawer from "./Drawer";
 
 export default function Header() {
-  const { ehAutenticado, logout, usuario } = useContext(AuthContext);
-  const nomeLocalStorage = localStorage.getItem("nome");
+  const { ehAutenticado, logout } = useContext(AuthContext);
 
-  const nomeParaExibir = nomeLocalStorage ?? usuario?.nome ?? "";
   return (
-    <header className="bg-gray-100 p-4 shadow flex justify-between items-center">
-      <nav className="text-lg font-semibold">Navbar</nav>
-
+    <header className="rounded-4xl bg-gradient-to-br from-emerald-200 to-purple-200 p-3 shadow flex justify-between items-center w-full">
+      <nav className="text-lg font-semibold w-full">
+        <Drawer />
+      </nav>
       {ehAutenticado && (
-        <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-700">Olá, {nomeParaExibir}</span>
-          <button
-            onClick={logout}
-            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
-          >
-            Sair
-          </button>
+        <div className="flex items-center gap-1">
+          <div className="tooltip tooltip-left tooltip-accent">
+            <div className="tooltip-content -rotate-20 mt-8 mr-0">
+              <div className="text-indigo-900 -rotate-2 text-2xl font-black">
+                Sair?
+              </div>
+            </div>
+            <IconButton
+              icon={<FaDoorOpen />}
+              variant="secondary"
+              onClick={logout}
+            />
+          </div>
         </div>
       )}
     </header>
