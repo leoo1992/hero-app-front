@@ -10,21 +10,15 @@ export default function Button({
   variant = "primary",
   ...props
 }: Readonly<ButtonProps>) {
-  const base = "w-full p-2 rounded font-semibold transition-colors";
+  const base = "btn";
 
-  let variantClasses = "";
+  const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
+    primary: "btn-primary",
+    secondary: "btn-secondary",
+    danger: "btn-error",
+  };
 
-  switch (variant) {
-    case "secondary":
-      variantClasses = "bg-gray-300 text-gray-800 hover:bg-gray-400";
-      break;
-    case "danger":
-      variantClasses = "bg-red-500 text-white hover:bg-red-600";
-      break;
-    default:
-      variantClasses = "bg-blue-500 text-white hover:bg-blue-600";
-      break;
-  }
+  const variantClasses = variants[variant];
 
   return (
     <button {...props} className={`${base} ${variantClasses} ${className}`} />
