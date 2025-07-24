@@ -4,16 +4,32 @@ import AppRoutes from "./routes/AppRoutes";
 import { AuthProvider } from "./contexts/authContext";
 import { Toaster } from "react-hot-toast";
 
-/* if (import.meta.env.DEV) {
-  const { trabalhador } = await import("./mocks/navegador");
-  await trabalhador.start({ onUnhandledRequest: "bypass" });
-} */
-
 createRoot(document.getElementById("root")!).render(
-  /*   <StrictMode> */
   <AuthProvider>
-    <Toaster/>
+    <Toaster
+      position="top-right"
+      toastOptions={{
+        style: {
+          background: "#ecfdf5",
+          color: "#1e3a8a",
+          border: "1px solid #1e3a8a",
+          textAlign: "center",
+          fontSize: ".875rem",
+        },
+        success: {
+          iconTheme: {
+            primary: "#1e3a8a",
+            secondary: "#ecfdf5",
+          },
+        },
+        error: {
+          iconTheme: {
+            primary: "#1e3a8a",
+            secondary: "#ecfdf5",
+          },
+        },
+      }}
+    />
     <AppRoutes />
   </AuthProvider>
-  /*  </StrictMode> */
 );
