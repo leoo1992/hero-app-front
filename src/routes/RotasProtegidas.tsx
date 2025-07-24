@@ -2,8 +2,10 @@ import { Navigate } from "react-router-dom";
 import { useContext, useEffect, useState, type ReactElement } from "react";
 import AuthContext from "@/contexts/authContext";
 import Loading from "@/components/ui/Loading";
-import { verificaJWTService } from "@/services/verificaJWTService";
-import { getTokenFromDocumentCookie } from "@/services/authService";
+import {
+  getTokenFromDocumentCookie,
+  verificaJWTService,
+} from "@/services/authService";
 
 export default function RotasProtegidas({
   children,
