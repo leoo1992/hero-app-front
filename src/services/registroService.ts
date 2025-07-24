@@ -4,6 +4,6 @@ import api from "@/lib/api";
 export async function registroService(
   data: TRegistroUsuarioData
 ): Promise<TAuthResposta> {
-  const response = await api.post<TAuthResposta>("/auth/registro", data);
+  const response = await api.post<TAuthResposta>("/hero", data);
   return response.data;
 }

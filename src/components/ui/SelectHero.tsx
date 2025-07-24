@@ -1,13 +1,12 @@
 import type { SelectHTMLAttributes } from "react";
+import { HEROES } from "@/types/THero.type"; // importa o array fixo de heróis
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   className?: string;
-  options: { value: string; label: string }[];
 }
 
-export default function Select({
+export default function SelectHero({
   className = "",
-  options,
   ...props
 }: Readonly<SelectProps>) {
   const baseClasses =
@@ -16,7 +15,7 @@ export default function Select({
   return (
     <select {...props} className={`${baseClasses} ${className}`}>
       <option value="">Selecione um herói</option>
-      {options.map(({ value, label }) => (
+      {HEROES.map(({ value, label }) => (
         <option key={value} value={value}>
           {label}
         </option>

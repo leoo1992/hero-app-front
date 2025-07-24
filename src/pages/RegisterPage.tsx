@@ -7,6 +7,8 @@ import Button from "../components/ui/Button";
 import { useState, useContext, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import RegistroContext from "@/contexts/registroContext";
+import SelectHero from "@/components/ui/SelectHero";
+import type { THeroValue  } from "@/types/THero.type";
 
 export default function RegisterPage() {
   const { registrar } = useContext(RegistroContext);
@@ -15,6 +17,7 @@ export default function RegisterPage() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [hero, setHero] = useState<THeroValue | "">("");
   const [erro, setErro] = useState<string | null>(null);
 
   function retornaLogin() {
@@ -25,7 +28,11 @@ export default function RegisterPage() {
     e.preventDefault();
     setErro(null);
     try {
-      await registrar({ nome, email, senha });
+      if (!hero) {
+        setErro("Selecione um herói.");
+        return;
+      }
+      await registrar({ nome, email, senha, hero });
       navigate("/");
     } catch (err) {
       console.error("Erro no cadastro:", err);
@@ -81,6 +88,10 @@ export default function RegisterPage() {
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               placeholder="Senha secreta"
+            />
+            <SelectHero
+              value={hero}
+               onChange={(e) => setHero(e.target.value as THeroValue)}
             />
             {erro && (
               <p className="text-red-500 text-sm text-center font-bold">
