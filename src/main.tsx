@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import "./styles/index.css";
 import AppRoutes from "./routes/AppRoutes";
 import { AuthProvider } from "./contexts/authContext";
+import { Toaster } from "react-hot-toast";
 
 /* if (import.meta.env.DEV) {
   const { trabalhador } = await import("./mocks/navegador");
@@ -11,6 +12,7 @@ import { AuthProvider } from "./contexts/authContext";
 createRoot(document.getElementById("root")!).render(
   /*   <StrictMode> */
   <AuthProvider>
+    <Toaster/>
     <AppRoutes />
   </AuthProvider>
   /*  </StrictMode> */

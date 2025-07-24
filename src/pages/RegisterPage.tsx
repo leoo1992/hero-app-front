@@ -8,7 +8,8 @@ import { useState, useContext, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import RegistroContext from "@/contexts/registroContext";
 import SelectHero from "@/components/ui/SelectHero";
-import type { THeroValue  } from "@/types/THero.type";
+import type { THeroValue } from "@/types/THero.type";
+import toast from "react-hot-toast";
 
 export default function RegisterPage() {
   const { registrar } = useContext(RegistroContext);
@@ -32,7 +33,13 @@ export default function RegisterPage() {
         setErro("Selecione um herói.");
         return;
       }
-      await registrar({ nome, email, senha, hero });
+
+      await toast.promise(registrar({ nome, email, senha, hero }), {
+        loading: "Registrando Usuário...",
+        success: <b>Usuário registrado com sucesso!</b>,
+        error: <b>Não foi possível registrar o usuário.</b>,
+      });
+
       navigate("/");
     } catch (err) {
       console.error("Erro no cadastro:", err);
@@ -91,7 +98,7 @@ export default function RegisterPage() {
             />
             <SelectHero
               value={hero}
-               onChange={(e) => setHero(e.target.value as THeroValue)}
+              onChange={(e) => setHero(e.target.value as THeroValue)}
             />
             {erro && (
               <p className="text-red-500 text-sm text-center font-bold">

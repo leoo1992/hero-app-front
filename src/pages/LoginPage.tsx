@@ -5,6 +5,7 @@ import AuthContext from "@/contexts/authContext";
 import InputMail from "../components/ui/InputMail";
 import InputPass from "../components/ui/InputPass";
 import Button from "../components/ui/Button";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const { login } = useContext(AuthContext);
@@ -19,7 +20,12 @@ export default function LoginPage() {
     setErro(null);
 
     try {
-      await login({ email, senha });
+      await toast.promise(login({ email, senha }), {
+        loading: "Entrando na base secreta...",
+        success: <b>Acesso a base secreta liberado!</b>,
+        error: <b>Não foi possível acessar a base secreta.</b>,
+      });
+
       navigate("/dashboard");
     } catch (err: unknown) {
       if (err instanceof Error) {
