@@ -4,6 +4,7 @@ import { useContext } from "react";
 import AuthContext from "@/contexts/authContext";
 import Drawer from "./Drawer";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Header() {
   const { ehAutenticado, logout } = useContext(AuthContext);
@@ -25,10 +26,15 @@ export default function Header() {
             <IconButton
               icon={<FaDoorOpen />}
               variant="secondary"
-              onClick={async () =>
-              {
-                logout();
-                navigate("/");
+              onClick={async () => {
+                await toast.promise(async () => logout(), {
+                  loading: "Saindo da base secret...",
+                  success: <b>Você saiu da base secreta!</b>,
+                  error: <b>Não foi possível sair da base secreta.</b>,
+                });
+                setTimeout(() => {
+                  navigate("/");
+                }, 1000);
               }}
             />
           </div>
