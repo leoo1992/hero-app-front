@@ -1,14 +1,15 @@
+import { getTokenFromDocumentCookie } from "@/services/authService";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "/",
+  baseURL: "http://localhost:3001/api",
   withCredentials: true,
 });
 
 let refreshTokenPromise: Promise<import("axios").AxiosResponse> | null = null;
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+api.interceptors.request.use(async (config) => {
+  const token = await getTokenFromDocumentCookie("token");
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
   }
@@ -29,8 +30,7 @@ api.interceptors.response.use(
             const novoToken = res.data.token;
             const nome = res.data.nome;
             if (novoToken) {
-              localStorage.setItem("token", novoToken);
-              localStorage.setItem("nome", nome);
+              window.localStorage.setItem("nome", nome);
             }
             refreshTokenPromise = null;
             return res;

@@ -20,8 +20,8 @@ export default function Input({
         {icon || <AiOutlineMail />}
         <input
           type="email"
-          autoComplete="username"
           required
+          maxLength={50}
           placeholder={placeholder}
           {...props}
           className={`${baseClasses} ${className}`}

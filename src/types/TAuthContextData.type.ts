@@ -8,4 +8,5 @@ export interface TAuthContextData {
   carregando: boolean;
   login: (credenciais: TLoginCredenciais) => Promise<void>;
   logout: () => void;
+  setCarregando: (carregando: boolean) => void;
 }

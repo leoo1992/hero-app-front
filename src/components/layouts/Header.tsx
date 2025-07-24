@@ -3,9 +3,11 @@ import IconButton from "@/components/ui/IconButton";
 import { useContext } from "react";
 import AuthContext from "@/contexts/authContext";
 import Drawer from "./Drawer";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const { ehAutenticado, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   return (
     <header className="rounded-4xl bg-gradient-to-br from-emerald-200 to-purple-200 p-3 shadow flex justify-between items-center w-full">
@@ -23,7 +25,11 @@ export default function Header() {
             <IconButton
               icon={<FaDoorOpen />}
               variant="secondary"
-              onClick={logout}
+              onClick={async () =>
+              {
+                logout();
+                navigate("/");
+              }}
             />
           </div>
         </div>

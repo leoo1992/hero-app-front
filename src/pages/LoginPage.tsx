@@ -37,7 +37,9 @@ export default function LoginPage() {
           <div className="w-0 text-6xl text-blue-700 animate-pulse hidden md:block sm:-rotate-12">
             <GiBatMask />
           </div>
-          <h1 className="text-3xl font-bold m-0 p-0">Bem-vindo à Hero Force!</h1>
+          <h1 className="text-3xl font-bold m-0 p-0">
+            Bem-vindo à Hero Force!
+          </h1>
           <p className="mt-4 text-gray-700">
             Você está a um passo de entrar para a elite dos heróis digitais.
             Acesse sua conta e continue sua missão.

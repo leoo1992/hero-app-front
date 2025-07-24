@@ -3,34 +3,43 @@ import { useContext, useEffect, useState, type ReactElement } from "react";
 import AuthContext from "@/contexts/authContext";
 import Loading from "@/components/ui/Loading";
 import { verificaJWTService } from "@/services/verificaJWTService";
+import { getTokenFromDocumentCookie } from "@/services/authService";
 
 export default function RotasProtegidas({
   children,
 }: {
   readonly children: ReactElement;
 }) {
-  const { carregando, logout, ehAutenticado } = useContext(AuthContext);
-  const [verificando, setVerificando] = useState(true);
-  const [autenticado, setAutenticado] = useState(false);
+  const { carregando, setCarregando } = useContext(AuthContext);
+  const [autenticado, setAutenticado] = useState<boolean | null>(null);
 
   useEffect(() => {
     async function verifica() {
+      setCarregando(true);
       try {
-        await verificaJWTService();
+        const token = await getTokenFromDocumentCookie("token");
+        if (!token) {
+          setAutenticado(false);
+          return;
+        }
+
+        const verificacao = await verificaJWTService(token);
+        if (!verificacao) throw new Error("Token inválido");
+
         setAutenticado(true);
-      } catch {
+      } catch (error) {
+        console.log("ERROR :", error);
         setAutenticado(false);
-        logout();
       } finally {
-        setVerificando(false);
+        setCarregando(false);
       }
     }
+
     verifica();
-  }, [logout]);
+  }, [setCarregando, autenticado]);
 
-  if (carregando || verificando) return <Loading />;
-
-  if (!autenticado || !ehAutenticado) return <Navigate to="/" replace />;
+  if (carregando || autenticado === null) return <Loading />;
+  if (!autenticado && !carregando) return <Navigate to="/" replace />;
 
   return children;
 }
