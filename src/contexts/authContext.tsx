@@ -76,35 +76,38 @@ export function AuthProvider({ children }: { readonly children: ReactNode }) {
     verificarTokenInicial();
   }, [verificarTokenInicial]);
 
-  const login = useCallback(async (credenciais: TLoginCredenciais) => {
-    iniciarCarregamento();
-    try {
-      const {
-        access_token,
-        refresh_token,
-        nome,
-        acesso,
-        email,
-        usuario,
-      }: TAuthResposta = await authService(credenciais);
-
-      if (nome && email && acesso && access_token && refresh_token) {
-        salvarNoLocalStorage({
+  const login = useCallback(
+    async (credenciais: TLoginCredenciais) => {
+      iniciarCarregamento();
+      try {
+        const {
+          access_token,
+          refresh_token,
           nome,
-          token: access_token,
-          email,
           acesso,
-          refreshToken: refresh_token,
-        });
+          email,
+          usuario,
+        }: TAuthResposta = await authService(credenciais);
 
-        setUsuario(usuario || null);
-        setToken(access_token);
-        setEhAutenticado(true);
+        if (nome && email && acesso && access_token && refresh_token) {
+          salvarNoLocalStorage({
+            nome,
+            token: access_token,
+            email,
+            acesso,
+            refreshToken: refresh_token,
+          });
+
+          setUsuario(usuario || null);
+          setToken(access_token);
+          setEhAutenticado(true);
+        }
+      } finally {
+        finalizarCarregamento();
       }
-    } finally {
-      finalizarCarregamento();
-    }
-  }, [finalizarCarregamento, iniciarCarregamento]);
+    },
+    [finalizarCarregamento, iniciarCarregamento]
+  );
 
   const logout = useCallback(async () => {
     iniciarCarregamento();
@@ -117,7 +120,6 @@ export function AuthProvider({ children }: { readonly children: ReactNode }) {
       limparLocalStorage();
       limparCookies();
       finalizarCarregamento();
-      window.location.href = "/";
     }
   }, [finalizarCarregamento, iniciarCarregamento]);
 
@@ -128,7 +130,9 @@ export function AuthProvider({ children }: { readonly children: ReactNode }) {
       ehAutenticado,
       carregando,
       login,
-      logout: () => { void logout(); },
+      logout: () => {
+        void logout();
+      },
       setCarregando,
     }),
     [usuario, token, ehAutenticado, carregando, login, logout]
