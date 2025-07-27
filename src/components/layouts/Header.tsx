@@ -2,7 +2,7 @@ import { FaDoorOpen } from "react-icons/fa";
 import IconButton from "@/components/ui/IconButton";
 import { useContext } from "react";
 import AuthContext from "@/contexts/authContext";
-import Drawer from "./Drawer";
+import Drawer from "../ui/Drawer";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
