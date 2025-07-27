@@ -17,9 +17,9 @@ export default function Button({
   const base = "btn";
 
   const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
-    primary: "btn-primary",
-    secondary: "btn-secondary",
-    danger: "btn-error",
+    primary: "btn-primary bg-blue-600",
+    secondary: "btn-secondary bg-pink-500",
+    danger: "btn-error bg-red-500",
   };
 
   const variantClasses = variants[variant];

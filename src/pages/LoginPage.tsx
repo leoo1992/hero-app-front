@@ -51,7 +51,7 @@ export default function LoginPage() {
             Acesse sua conta e continue sua missão.
           </p>
         </div>
-        <div className="card p-3 sm:p-4 mb-6 sm:0 rounded-3xl w-full max-w-sm shrink-0 shadow-xl bg-base-100 opacity-90">
+        <div className="card bg-white p-3 sm:p-4 mb-6 sm:0 rounded-3xl w-full max-w-sm shrink-0 shadow-xl bg-base-100 opacity-90">
           <div className="card-body">
             <form className="fieldset space-y-2" onSubmit={handleSubmit}>
               <InputMail

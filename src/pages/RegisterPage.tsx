@@ -65,7 +65,7 @@ export default function RegisterPage() {
           <form
             onSubmit={handleSubmit}
             autoComplete="off"
-            className="flex flex-col gap-4"
+            className="flex flex-col gap-4 max-w-xs mx-auto overflow-hidden w-full"
           >
             <div className="text-center">
               <div className="w-0 text-5xl text-blue-600 animate-pulse hidden sm:block sm:-rotate-12">

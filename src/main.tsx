@@ -1,3 +1,6 @@
+import { loadStoredTheme } from "./utils/loadStoredTheme";
+loadStoredTheme();
+
 import { createRoot } from "react-dom/client";
 import "./styles/index.css";
 import AppRoutes from "./routes/AppRoutes";

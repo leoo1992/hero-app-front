@@ -1,0 +1,8 @@
+export const loadStoredTheme = () => {
+  const storedTheme = localStorage.getItem("theme") as "ligth" | "dark";
+  if (storedTheme) {
+    document.documentElement.setAttribute("data-theme", storedTheme);
+  } else {
+    document.documentElement.setAttribute("data-theme", "light");
+  }
+};

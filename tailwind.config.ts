@@ -23,15 +23,6 @@ config.daisyui = {
       dark: {
         ...themes["[data-theme=dark]"],
       },
-      aqua: {
-        ...themes["[data-theme=aqua]"],
-      },
-      forest: {
-        ...themes["[data-theme=forest]"],
-      },
-      corporate: {
-        ...themes["[data-theme=corporate]"],
-      },
     },
   ],
 };

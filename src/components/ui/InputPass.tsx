@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HiOutlineKey,HiEye, HiEyeOff } from "react-icons/hi";
+import { HiOutlineKey, HiEye, HiEyeOff } from "react-icons/hi";
 import type { InputHTMLAttributes } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -14,11 +14,11 @@ export default function Input({
 
   const alternarVisibilidade = () => setMostrarSenha((prev) => !prev);
 
-  const baseClasses = "w-full";
+  const baseClasses = "w-full bg-white";
 
   return (
     <>
-      <label className="input validator input-accent rounded-xl items-center gap-2">
+      <label className="input validator input-accent rounded-xl items-center gap-2 bg-white">
         <HiOutlineKey />
 
         <input
