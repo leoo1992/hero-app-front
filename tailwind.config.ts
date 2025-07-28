@@ -7,7 +7,12 @@ import themes from "daisyui/src/colors/themes";
 const config: Config = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'max-h-515': { raw: '(max-height: 515px)' },
+        'max-h-585': { raw: '(max-height: 585px)' },
+      },
+    },
   },
   plugins: [daisyui],
 };

@@ -4,7 +4,8 @@
 }
 
 html,
-body, #root {
+body,
+#root {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -13,5 +14,29 @@ body, #root {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
+}
+
+@media (max-height: 515px) {
+  .max-h-515\:hidden {
+    display: none;
+  }
+}
+
+@media (max-height: 585px) {
+  .max-h-585\:hidden {
+    display: none;
+  }
+}
+
+@layer utilities {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-text-fill-color: #3730a3 !important;
+    caret-color: #3730a3;
+    box-shadow: 0 0 0px 1000px white inset !important;
+    transition: background-color 9999s ease-in-out 0s;
+  }
 }
