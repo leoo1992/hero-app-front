@@ -1,11 +1,11 @@
 import { useState, type FormEvent, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "@/contexts/authContext";
-import InputMail from "../components/ui/InputMail";
-import InputPass from "../components/ui/InputPass";
-import Button from "../components/ui/Button";
+import InputMail from "../components/ui/Inputs/InputMail";
+import InputPass from "../components/ui/Inputs/InputPass";
+import Button from "../components/ui/Buttons/Button";
 import toast from "react-hot-toast";
-import LoginTitle from "@/components/ui/LoginTitle";
+import LoginTitle from "@/components/ui/Titles/LoginTitle";
 
 export default function LoginPage() {
   const { login } = useContext(AuthContext);
@@ -37,8 +37,10 @@ export default function LoginPage() {
 
   return (
     <section className="hero min-h-full w-full text-indigo-800 font-semibold p-0 m-0 flex flex-col">
-      <div className="hero-content flex-col lg:flex-row-reverse gap-2 sm:gap-4 w-full p-0 m-0 flex 
-      lg:justify-content-end opacity-90 lg:opacity-100">
+      <div
+        className="hero-content flex-col lg:flex-row-reverse gap-2 sm:gap-4 w-full p-0 m-0 flex 
+      lg:justify-content-end opacity-90 lg:opacity-100"
+      >
         <LoginTitle />
         <div className="card bg-white p-3 sm:p-4 sm:0 rounded-3xl w-full max-w-sm shrink-0 shadow-xl">
           <div className="card-body">

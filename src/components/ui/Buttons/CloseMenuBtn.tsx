@@ -1,10 +1,11 @@
 import { FaTimes } from "react-icons/fa";
-import ThemeChanger from "./ThemeChanger";
 
 export default function CloseMenuBtn() {
   return (
-    <div className="flex justify-end w-full mb-2 pr-3 text-indigo-800 gap-5">
-      <ThemeChanger />
+    <div className="tooltip tooltip-left tooltip-warning">
+      <div className="tooltip-content -rotate-10 mt-10">
+        <div className="text-indigo-900">Fechar menu</div>
+      </div>
       <label
         htmlFor="my-drawer"
         className="btn close-btn btn-square rotate-10 btn-primary bg-blue-700 opacity-100 

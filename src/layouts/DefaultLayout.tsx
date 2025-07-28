@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import Header from "../components/layouts/Header";
-import Footer from "../components/layouts/Footer";
+import Footer from "./Footer";
+import Header from "./Header";
 
 export default function DefaultLaytout({
   children,

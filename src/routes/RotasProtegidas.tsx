@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useContext, useEffect, useState, type ReactElement } from "react";
 import AuthContext from "@/contexts/authContext";
-import Loading from "@/components/ui/Loading";
+import Loading from "@/components/ui/Loaders/Loading";
 import {
   getTokenFromDocumentCookie,
   verificaJWTService,
@@ -20,6 +20,7 @@ export default function RotasProtegidas({
       setCarregando(true);
       try {
         const token = await getTokenFromDocumentCookie("token");
+
         if (!token) {
           setAutenticado(false);
           return;
@@ -38,7 +39,7 @@ export default function RotasProtegidas({
     }
 
     verifica();
-  }, [setCarregando, autenticado]);
+  }, [setCarregando]);
 
   if (carregando || autenticado === null) return <Loading />;
   if (!autenticado && !carregando) return <Navigate to="/" replace />;

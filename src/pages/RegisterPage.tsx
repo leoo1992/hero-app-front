@@ -1,13 +1,13 @@
 import { FaArrowLeft } from "react-icons/fa";
 import { MdOutlinePersonOutline } from "react-icons/md";
 import { GiBatMask } from "react-icons/gi";
-import InputMail from "../components/ui/InputMail";
-import InputPass from "../components/ui/InputPass";
-import Button from "../components/ui/Button";
+import InputMail from "../components/ui/Inputs/InputMail";
+import InputPass from "../components/ui/Inputs/InputPass";
+import Button from "../components/ui/Buttons/Button";
 import { useState, useContext, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import RegistroContext from "@/contexts/registroContext";
-import SelectHero from "@/components/ui/SelectHero";
+import SelectHero from "@/components/ui/Selects/SelectHero";
 import type { THeroValue } from "@/types/THero.type";
 import toast from "react-hot-toast";
 

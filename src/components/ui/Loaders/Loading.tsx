@@ -1,4 +1,4 @@
-import batman from "../../assets/batman.webp";
+import batman from "../../../assets/batman.webp";
 export default function Loading() {
   return (
     <div className="flex items-center justify-center h-screen w-full bg-transparent">

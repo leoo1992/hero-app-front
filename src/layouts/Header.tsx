@@ -1,10 +1,10 @@
 import { FaDoorOpen } from "react-icons/fa";
-import IconButton from "@/components/ui/IconButton";
+import IconButton from "@/components/ui/Buttons/IconButton";
 import { useContext } from "react";
 import AuthContext from "@/contexts/authContext";
-import Drawer from "../ui/Drawer";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Drawer from "@/components/ui/Menus/Drawer";
 
 export default function Header() {
   const { ehAutenticado, logout } = useContext(AuthContext);

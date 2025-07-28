@@ -6,7 +6,7 @@ import DefaultLaytout from "../layouts/DefaultLayout";
 import { RegistroProvider } from "@/contexts/registroContext";
 import ProtectedRoute from "./RotasProtegidas";
 import RedirectRoute from "./RedirecionamentoRota";
-import Loading from "@/components/ui/Loading";
+import Loading from "@/components/ui/Loaders/Loading";
 
 const LoginPage = lazy(() => import("../pages/LoginPage"));
 const RegisterPage = lazy(() => import("../pages/RegisterPage"));
@@ -40,6 +40,16 @@ export default function AppRoutes() {
           />
           <Route
             path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DefaultLaytout>
+                  <DashBoard />
+                </DefaultLaytout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/admin"
             element={
               <ProtectedRoute>
                 <DefaultLaytout>
