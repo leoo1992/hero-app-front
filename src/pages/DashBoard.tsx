@@ -4,7 +4,6 @@ import AuthContext from "@/contexts/authContext";
 import { getUsuarioLogado } from "@/services/authService";
 import type { TUsuario } from "@/types/TUsuario.type";
 import toTitleCase from "@/utils/toTitleCase";
-import { getUsuarioFromLocalStorage } from "@/utils/getUserFromStorage";
 
 export default function DashBoard() {
   const { usuario: usuarioContext } = useContext(AuthContext);
@@ -12,13 +11,8 @@ export default function DashBoard() {
 
   useEffect(() => {
     const fetchUsuario = async () => {
-      if (usuarioContext) {
-        const user = await getUsuarioLogado();
-        setUsuario(user);
-      } else {
-        const localUser = getUsuarioFromLocalStorage();
-        if (localUser) setUsuario(localUser);
-      }
+      const user = await getUsuarioLogado();
+      setUsuario(user);
     };
 
     fetchUsuario();
@@ -35,7 +29,8 @@ export default function DashBoard() {
               Bem-vindo{nomeFormatado && ` ${nomeFormatado}`}!
             </h1>
             <p className="text-gray-600 mt-1">
-              Prepare-se para uma nova missão. A Hero Force conta com você agora.
+              Prepare-se para uma nova missão. A Hero Force conta com você
+              agora.
             </p>
           </div>
           <div className="text-5xl text-indigo-500 hidden opacity-40 sm:block sm:rotate-20 animate-pulse">

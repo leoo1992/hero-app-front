@@ -13,10 +13,10 @@ export default function Input({
   placeholder = "Email",
   ...props
 }: Readonly<InputProps>) {
-  const baseClasses = "w-full text-indigo-800 bg-white text-indigo-800";
+  const baseClasses = "w-full appearance-none text-indigo-800 bg-white text-indigo-800";
   return (
     <>
-      <label className="input input-accent bg-white validator rounded-xl bg-white text-indigo-800">
+      <label className="input input-accent bg-white validator rounded-xl text-indigo-800">
         {icon || <AiOutlineMail />}
         <input
           type="email"

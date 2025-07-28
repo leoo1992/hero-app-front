@@ -1,16 +1,15 @@
 import { useState, type FormEvent, useContext } from "react";
-import { GiBatMask } from "react-icons/gi";
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "@/contexts/authContext";
 import InputMail from "../components/ui/InputMail";
 import InputPass from "../components/ui/InputPass";
 import Button from "../components/ui/Button";
 import toast from "react-hot-toast";
+import LoginTitle from "@/components/ui/LoginTitle";
 
 export default function LoginPage() {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState<string | null>(null);
@@ -38,20 +37,10 @@ export default function LoginPage() {
 
   return (
     <section className="hero min-h-full w-full text-indigo-800 font-semibold p-0 m-0 flex flex-col">
-      <div className="hero-content flex-col lg:flex-row-reverse gap-2 sm:gap-8 w-full p-0 m-0 flex lg:justify-content-end">
-        <div className="text-center lg:text-left p-4 sm:p-8 bg-white shadow-md rounded-3xl opacity-90 max-w-md">
-          <div className="w-0 text-6xl text-blue-700 animate-pulse hidden md:block sm:-rotate-12">
-            <GiBatMask />
-          </div>
-          <h1 className="text-3xl font-bold m-0 p-0">
-            Bem-vindo à Hero Force!
-          </h1>
-          <p className="mt-4 text-gray-700">
-            Você está a um passo de entrar para a elite dos heróis digitais.
-            Acesse sua conta e continue sua missão.
-          </p>
-        </div>
-        <div className="card bg-white p-3 sm:p-4 mb-6 sm:0 rounded-3xl w-full max-w-sm shrink-0 shadow-xl bg-base-100 opacity-90">
+      <div className="hero-content flex-col lg:flex-row-reverse gap-2 sm:gap-4 w-full p-0 m-0 flex 
+      lg:justify-content-end opacity-90 lg:opacity-100">
+        <LoginTitle />
+        <div className="card bg-white p-3 sm:p-4 sm:0 rounded-3xl w-full max-w-sm shrink-0 shadow-xl">
           <div className="card-body">
             <form className="fieldset space-y-2" onSubmit={handleSubmit}>
               <InputMail

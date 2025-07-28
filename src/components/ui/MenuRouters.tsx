@@ -1,15 +1,27 @@
 import CloseMenuBtn from "./CloseMenuBtn";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CollapseTitle from "./CollapseTitle";
 import AuthContext from "@/contexts/authContext";
+import { getUsuarioLogado } from "@/services/authService";
+import type { TUsuario } from "@/types/TUsuario.type";
 
 export default function MenuRouters() {
   const [active, setActive] = useState<string | null>(null);
-  const { usuario } = useContext(AuthContext);
+  const { usuario: usuarioContext } = useContext(AuthContext);
+  const [usuario, setUsuario] = useState<TUsuario | null>(usuarioContext);
 
   const handleToggle = (id: string) => {
     setActive((prev) => (prev === id ? null : id));
   };
+
+  useEffect(() => {
+    const fetchUsuario = async () => {
+      const user = await getUsuarioLogado();
+      setUsuario(user);
+    };
+
+    fetchUsuario();
+  }, []);
 
   return (
     <div className="drawer-side w-full h-full">
