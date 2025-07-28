@@ -4,7 +4,8 @@ import batman from "../assets/batman.webp";
 
 export default function PaginaNaoEncontrada() {
   return (
-    <div className="relative h-screen w-full flex items-center justify-center text-indigo-900 font-semibold overflow-hidden">
+    <div className="relative h-screen w-full flex items-center justify-center text-indigo-900 font-semibold 
+    overflow-hidden">
       <img
         src={batman}
         alt="Batman"
@@ -12,15 +13,16 @@ export default function PaginaNaoEncontrada() {
         style={{ zIndex: -1 }}
       />
 
-      <div className="relative z-10 flex flex-col items-center text-center max-w-md px-6">
-        <div className="text-6xl mb-4 text-blue-700 animate-bounce">
+      <div className="relative z-10 flex flex-col items-center text-center max-w-md px-6 bg-accent p-6 
+      rounded-3xl opacity-80">
+        <div className="text-6xl pt-4 text-blue-700 animate-bounce">
           <GiBatMask />
         </div>
-        <h1 className="text-5xl font-bold text-blue-800">404</h1>
-        <p className="mt-3 text-lg text-gray-800">
+        <h1 className="text-5xl font-bold text-base-950">404</h1>
+        <p className="mt-3 text-lg text-base-950">
           O Batman investigou e... não encontrou essa página.
         </p>
-        <p className="text-sm text-gray-600 mt-1 mb-6">
+        <p className="text-sm text-base-950 mt-1 mb-6">
           Mas não se preocupe, você ainda pode salvar o dia!
         </p>
         <Link
