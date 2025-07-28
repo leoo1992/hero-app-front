@@ -31,11 +31,13 @@ export default function AppRoutes() {
           <Route
             path="/register"
             element={
-              <LoginLayout>
-                <RegistroProvider>
-                  <RegisterPage />
-                </RegistroProvider>
-              </LoginLayout>
+              <RedirectRoute>
+                <LoginLayout>
+                  <RegistroProvider>
+                    <RegisterPage />
+                  </RegistroProvider>
+                </LoginLayout>
+              </RedirectRoute>
             }
           />
           <Route
