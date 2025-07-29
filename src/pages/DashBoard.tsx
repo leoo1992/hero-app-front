@@ -6,6 +6,8 @@ import toTitleCase from "@/utils/toTitleCase";
 import { useNavigate } from "react-router-dom";
 import WellcomeCard from "@/components/ui/Cards/WellcomeCard";
 import HeroCard from "@/components/ui/Cards/HeroCard";
+import MissionsStartedCard from "@/components/ui/Cards/MissionsStartedCard";
+import MissionsPendingCard from "@/components/ui/Cards/MissionsPendingCard";
 
 export default function DashBoard() {
   const { usuario: usuarioContext } = useContext(AuthContext);
@@ -44,28 +46,9 @@ export default function DashBoard() {
         <WellcomeCard nomeFormatado={nomeFormatado} admin={admin} />
         {!admin && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <HeroCard />
-            <div
-              className="bg-emerald-100 rounded-xl p-4 shadow-md text-emerald-800 
-            flex flex-col items-center justify-center min-h-40"
-            >
-              <h2 className="text-xl font-semibold mb-2 text-center">
-                Missões em andamento
-              </h2>
-              <p className="text-gray-700 text-sm text-center">
-                Nenhuma missão encontrada.
-              </p>
-            </div>
-
-            <div className="bg-purple-200 rounded-xl p-4 shadow-md text-purple-800 flex flex-col 
-            items-center justify-center min-h-40">
-              <h2 className="text-xl font-semibold mb-2 text-center">
-                Missões pendentes
-              </h2>
-              <p className="text-gray-700 text-sm text-center">
-                Nenhuma missão encontrada.
-              </p>
-            </div>
+            <HeroCard usuario={usuario} />
+            <MissionsStartedCard />
+            <MissionsPendingCard />
           </div>
         )}
       </div>
