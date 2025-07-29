@@ -5,6 +5,7 @@ import type { TUsuario } from "@/types/TUsuario.type";
 import toTitleCase from "@/utils/toTitleCase";
 import { useNavigate } from "react-router-dom";
 import WellcomeCard from "@/components/ui/Cards/WellcomeCard";
+import HeroCard from "@/components/ui/Cards/HeroCard";
 
 export default function DashBoard() {
   const { usuario: usuarioContext } = useContext(AuthContext);
@@ -17,7 +18,6 @@ export default function DashBoard() {
         const user = await getUsuarioLogado();
         setUsuario(user);
       };
-
       fetchUsuario();
     } else {
       setUsuario(usuarioContext);
@@ -36,22 +36,33 @@ export default function DashBoard() {
   const admin = usuario?.acesso === "ADMIN";
 
   return (
-    <section className="h-full w-full p-2 sm:p-6 text-indigo-800">
-      <div className="max-w-4xl mx-auto flex flex-col gap-6">
+    <section
+      className="h-screen w-full
+    lg:flex-row gap-6 overflow-y-auto"
+    >
+      <div className="w-full flex flex-col gap-6 p-2 sm:p-6">
         <WellcomeCard nomeFormatado={nomeFormatado} admin={admin} />
         {!admin && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3">
-            <div className="bg-emerald-100 rounded-xl p-4 shadow-md">
-              <h2 className="text-xl font-semibold mb-2">
-                Missoes em andamento
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <HeroCard />
+            <div
+              className="bg-emerald-100 rounded-xl p-4 shadow-md text-emerald-800 
+            flex flex-col items-center justify-center min-h-40"
+            >
+              <h2 className="text-xl font-semibold mb-2 text-center">
+                Missões em andamento
               </h2>
-              <p className="text-gray-700 text-sm">
+              <p className="text-gray-700 text-sm text-center">
                 Nenhuma missão encontrada.
               </p>
             </div>
-            <div className="bg-indigo-100 rounded-xl p-4 shadow-md">
-              <h2 className="text-xl font-semibold mb-2">Missões pendentes</h2>
-              <p className="text-gray-700 text-sm">
+
+            <div className="bg-purple-200 rounded-xl p-4 shadow-md text-purple-800 flex flex-col 
+            items-center justify-center min-h-40">
+              <h2 className="text-xl font-semibold mb-2 text-center">
+                Missões pendentes
+              </h2>
+              <p className="text-gray-700 text-sm text-center">
                 Nenhuma missão encontrada.
               </p>
             </div>

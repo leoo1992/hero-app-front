@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import Footer from "./Footer";
 import Header from "./Header";
 
 export default function DefaultLaytout({
@@ -8,10 +7,9 @@ export default function DefaultLaytout({
   readonly children: ReactNode;
 }) {
   return (
-    <main className="flex flex-col h-screen w-full overflow-hidden p-3">
+    <main className="flex flex-col h-full w-full overflow-hidden p-3">
       <Header />
-      <section className="flex-grow overflow-y-auto">{children}</section>
-      <Footer />
+      <section className="flex flex-col h-full w-full overflow-hidden justify-center items-center">{children}</section>
     </main>
   );
 }

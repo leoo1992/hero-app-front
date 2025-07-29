@@ -27,7 +27,7 @@ export default function CollapseTitle({
         className={`collapse-title ${bgcolor} text-primary-content peer-checked:${bgCheck} 
             peer-checked:text-indigo-950 text-xl flex items-center place-content-between w-full p-4`}
       >
-        {title} <MdExpandMore size={28} />
+        {title} <MdExpandMore size={28} className={`transition-transform ease-in-out ${active === title ? "rotate-180": ""}`} />
       </div>
     </>
   );
