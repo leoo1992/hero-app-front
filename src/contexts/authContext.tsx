@@ -96,6 +96,7 @@ export function AuthProvider({ children }: { readonly children: ReactNode }) {
             email,
             acesso,
             refreshToken: refresh_token,
+            usuario,
           });
 
           setUsuario(usuario || null);

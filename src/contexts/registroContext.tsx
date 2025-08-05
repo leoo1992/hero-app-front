@@ -10,7 +10,7 @@ import type {
   TAuthResposta,
   TRegistroContextData,
 } from "@/types/index.type";
-import { registroService } from "@/services/registroService";
+import { createHeroService } from "@/services/heroService";
 
 const RegistroContext = createContext<TRegistroContextData>({} as TRegistroContextData);
 
@@ -25,7 +25,7 @@ export function RegistroProvider({
     async (data: TRegistroUsuarioData): Promise<TAuthResposta> => {
       setCarregando(true);
       try {
-        const response = await registroService(data);
+        const response = await createHeroService(data);
         return response;
       } finally {
         setCarregando(false);

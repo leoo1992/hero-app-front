@@ -16,7 +16,11 @@ export default function SelectHero({
   `;
 
   return (
-    <select defaultValue="" {...props} className={`${baseClasses} ${className}`}>
+    <select
+      value={props.value ?? ""}
+      {...props}
+      className={`${baseClasses} ${className}`}
+    >
       <option value="" disabled={true} className="rounded-xl">
         Selecione um herói
       </option>

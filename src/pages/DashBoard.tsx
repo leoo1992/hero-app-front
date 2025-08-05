@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "@/contexts/authContext";
-import { getUsuarioLogado } from "@/services/authService";
 import type { TUsuario } from "@/types/TUsuario.type";
 import toTitleCase from "@/utils/toTitleCase";
 import { useNavigate } from "react-router-dom";
@@ -15,13 +14,7 @@ export default function DashBoard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!usuarioContext) {
-      const fetchUsuario = async () => {
-        const user = await getUsuarioLogado();
-        setUsuario(user);
-      };
-      fetchUsuario();
-    } else {
+    if (usuarioContext) {
       setUsuario(usuarioContext);
     }
   }, [usuarioContext]);
@@ -46,7 +39,11 @@ export default function DashBoard() {
         <WellcomeCard nomeFormatado={nomeFormatado} admin={admin} />
         {!admin && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <HeroCard usuario={usuario} />
+            <HeroCard
+              usuario={usuario}
+              onHeroUpdate={(novoUsuario) => setUsuario(novoUsuario)}
+            />
+
             <MissionsStartedCard />
             <MissionsPendingCard />
           </div>

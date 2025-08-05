@@ -9,13 +9,21 @@ import mulher_maravilha from "../../../assets/heros/mulher-maravilha.png";
 import SelectHero from "../Selects/SelectHero";
 import Button from "../Buttons/Button";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { updateHeroService } from "@/services/heroService";
 
 interface HeroCardProps {
   readonly usuario: TUsuario | null;
+  readonly onHeroUpdate?: (usuario: TUsuario) => void;
 }
 
-export default function HeroCard({ usuario }: HeroCardProps) {
+export default function HeroCard({ usuario, onHeroUpdate }: HeroCardProps) {
   const [editando, setEditando] = useState(false);
+  const [heroSelecionado, setHeroSelecionado] = useState<THeroValue | null>(
+    usuario?.hero ?? null
+  );
+  const [salvando, setSalvando] = useState(false);
+
   const heroImages: Record<THeroValue, string> = {
     Superman: superman,
     Batman: batman,
@@ -29,8 +37,37 @@ export default function HeroCard({ usuario }: HeroCardProps) {
     setEditando(true);
   }
 
-  function handleSalvarClick() {
-    setEditando(false);
+  async function handleSalvarClick() {
+    if (!usuario || !heroSelecionado) return;
+
+    setSalvando(true);
+
+    try {
+      const atualizado = await toast.promise(
+        (async () => {
+          const result = await updateHeroService(usuario.id, {
+            hero: heroSelecionado,
+          });
+
+          if (!result) throw new Error("Herói não atualizado");
+
+          return result;
+        })(),
+        {
+          loading: "Salvando herói...",
+          success: "Herói atualizado com sucesso!",
+          error: "Erro ao atualizar herói",
+        }
+      );
+
+      window.localStorage.setItem("hero", atualizado.hero);
+      onHeroUpdate?.(atualizado);
+      setEditando(false);
+    } catch (error) {
+      console.error("Erro ao atualizar herói:", error);
+    } finally {
+      setSalvando(false);
+    }
   }
 
   return (
@@ -44,26 +81,36 @@ export default function HeroCard({ usuario }: HeroCardProps) {
 
       <figure className="aspect-[3/2] w-full flex items-center justify-center mb-4">
         <img
-          src={usuario?.hero ? heroImages[usuario.hero] : ""}
-          alt={usuario?.hero ?? "Herói"}
+          src={heroSelecionado ? heroImages[heroSelecionado] : ""}
+          alt={heroSelecionado ?? "Herói"}
           className="w-full max-w-60 h-full object-contain rounded-xl"
         />
       </figure>
 
       <h3 className="text-lg font-semibold text-indigo-700 mb-4">
-        {usuario?.hero}
+        {heroSelecionado}
       </h3>
 
       <div className="transition-all duration-900 ease-in-out">
         {!editando ? (
-          <Button className="w-28 rounded-2xl transition-all duration-900 ease-in-out" onClick={handleTrocarClick}>
+          <Button
+            className="w-28 rounded-2xl transition-all duration-900 ease-in-out"
+            onClick={handleTrocarClick}
+          >
             Trocar
           </Button>
         ) : (
-          <div className="flex gap-3">
-            <SelectHero />
-            <Button className="w-28 rounded-2xl transition-all duration-900 ease-in-out" onClick={handleSalvarClick}>
-              Salvar
+          <div className="flex gap-3 flex-col lg:flex-row items-center ">
+            <SelectHero
+              value={heroSelecionado ?? ""}
+              onChange={(e) => setHeroSelecionado(e.target.value as THeroValue)}
+            />
+            <Button
+              className="w-28 rounded-2xl transition-all duration-900 ease-in-out"
+              onClick={handleSalvarClick}
+              disabled={salvando}
+            >
+              {salvando ? "Salvando..." : "Salvar"}
             </Button>
           </div>
         )}
